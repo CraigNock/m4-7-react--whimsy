@@ -46,6 +46,8 @@ So that's
 
 Animations are an effective way to **direct attention**.
 
+
+attract attention to a call to action
 ---
 
 <img src='./assets/rainbow-button.gif' />
@@ -76,6 +78,10 @@ Tasteful use of animation can make your work stand out.
 .some-class {
   opacity: 0;
   transition: opacity 500ms;
+}
+//
+.some-class:hover {
+  opacity:1;
 }
 ```
 
@@ -158,6 +164,12 @@ const Surface = styled(ButtonLayer)`
   justify-content: center;
   align-items: center;
   font-size: 32px;
+  //transition: transform 500ms ease;
+  //or can do cubic bezier thing instead of ease or linear
+  //&:hover {
+    transform: translate(-10px, -10px);
+    transition: "transform 5s";
+  }
 `;
 
 const Shadow = styled(ButtonLayer)`
@@ -171,6 +183,7 @@ const Shadow = styled(ButtonLayer)`
 ```
 
 ---
+https://codesandbox.io/s/distracted-robinson-sy4up
 
 ```jsx live=true split=[80,20]
 const App = () => {
@@ -213,7 +226,7 @@ const On = styled(Bulb)`
 `;
 
 const Off = styled(Bulb)`
-  z-index: 1;
+  z-index: 1; //should be <1 or styled >1(but gloss will need to be on top)
   background: #ccc;
 `;
 
@@ -271,17 +284,18 @@ The <SpringDemo />
 
 ### How to use
 
+for styled components=> styled(animated.button)
 ```js
 import { useSpring, animated } from 'react-spring';
 
 const Demo = () => {
   const [toggled, setToggled] = React.useState(false);
 
-  const style = useSpring({
+  const styleo = useSpring({
     transform: toggled ? 'translateY(200px)' : 'translateY(0px)',
   });
 
-  return <animated.button style={style} onClick={() => setToggled(!toggled)} />;
+  return <animated.button style={styleo} onClick={() => setToggled(!toggled)} />;
 };
 ```
 
@@ -328,7 +342,7 @@ const Demo = () => {
 
   const style = useSpring({
     transform: toggled ? 'translateY(200px)' : 'translateY(0px)',
-    config: {
+    config: { //the fancy!
       tension: 200,
       friction: 1,
     },
@@ -372,6 +386,9 @@ https://codesandbox.io/s/kind-hooks-9iejq
 
 ```js live=true split=[70,30]
 // Make the red square "inflate" more "naturally"
+
+//import {useSpring, animated} from "react-spring";
+
 const App = () => {
   const [inflatedAmount, setInflatedAmount] = React.useState(1);
 
@@ -379,12 +396,23 @@ const App = () => {
     setInflatedAmount(inflatedAmount + 0.55);
   };
 
+//const style = useSpring({
+  //   transform: `scale(${inflatedAmount})`,
+  //   config: { 
+  //     mass: 3,
+  //     tension: 300,
+  //     friction: 40,
+  //   },
+  // });
+
+
   return (
     <Wrapper>
       <Button onClick={inflateMore}>Inflate!</Button>
       <Box
         style={{
-          transform: `scale(${inflatedAmount})`,
+          transform: `scale(${inflatedAmount})`,//remove
+          //...style
         }}
       >
         Inflated!
@@ -405,6 +433,7 @@ const Button = styled.button`
   left: 10px;
   z-index: 1;
 `;
+//change to styled(animated.div)`
 const Box = styled.div`
   width: 100px;
   height: 100px;
@@ -423,6 +452,9 @@ render(<App />);
 https://codesandbox.io/s/distracted-feistel-jm81y
 
 ```js live=true split=[70,30]
+
+import {useSpring, animated} from 'react-spring';
+
 const Card = ({ isVisible, children }) => {
   return (
     <CardWrapper
@@ -436,6 +468,29 @@ const Card = ({ isVisible, children }) => {
   );
 };
 
+
+//   const cardStyle = useSpring({
+//     opacity: isVisible ? 1 : 0,
+//     transform: isVisible ? "translateY(0px)" : "translateY(10px)",
+//     config: { 
+//       mass: 3,
+//       tension: 300,
+//       friction: 40,
+//     }
+//   })
+
+//   return (
+//     <CardWrapper
+//       style={{
+//         ...cardStyle
+//       }}
+//     >
+//       {children}
+//     </CardWrapper>
+//   );
+// };
+
+//const CardWrapper = styled(animated.div)`
 const CardWrapper = styled.div`
   box-shadow: 3px 3px 6px black;
   border-radius: 10px;

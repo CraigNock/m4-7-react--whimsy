@@ -69,14 +69,30 @@ Add a fade-in animation
 https://codesandbox.io/s/vigorous-snyder-x3px9
 
 ```js live=true split=[70,30]
+
+//import styled, { keyframes } from "styled-components";
+
 const App = ({ children = 'hello' }) => {
   return <Wrapper>{children}</Wrapper>;
 };
+
+// const riseIn = keyframes`
+//   from {
+//     opacity: 0;
+//     transform: translateY(12px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// `;
 
 const Wrapper = styled.div`
   padding: 40px;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
+  //  animation: ${riseIn} 1000ms;
+
 `;
 
 render(<Demos.AnimationEx3 />);
@@ -88,13 +104,29 @@ render(<Demos.AnimationEx3 />);
 https://codesandbox.io/s/keen-tharp-nkleq
 
 ```js live=true split=[70,30]
+
+// import styled, { keyframes } from "styled-components";
+
 const App = () => {
   return <Wrapper>🛸</Wrapper>;
 };
 
+// const slideIn = keyframes`
+//   from {
+//     transform: translateX(-600px);
+//   }
+//   to {
+//     transform: translateX(0);
+
+//   }
+// `;
+
 const Wrapper = styled.div`
   font-size: 72px;
 `;
+  // text-align: right;
+  // font-size: 72px;
+  // animation ${slideIn} 5000ms;
 
 render(<Demos.AnimationEx4 />);
 // render(<App />)

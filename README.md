@@ -59,7 +59,7 @@ This convoluted structure means that we have nice imports, as well as a clear ed
 
 ---
 
-### Exercise 1: Pre-animation work
+## Exercise 1: Pre-animation work
 
 Before we get to the fun stuff, we have a bit of work to do. It looks like the workshop doesn't quite have all the stuff we'd expect to see in a tweet. Specifically, the following things are missing:
 
@@ -99,7 +99,7 @@ This state can be used to power the props, which should look something like this
   username="carmen-sandiego"
   avatarSrc={avatar}
   timestamp={date}
-  // The following 3 values are driven by React state hooks:
+  // The following 4 values are driven by React state hooks:
   numOfRetweets={state.numOfRetweets}
   numOfLikes={state.numOfLikes}
   isLikedByCurrentUser={state.isLiked}

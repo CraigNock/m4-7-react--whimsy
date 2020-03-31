@@ -81,11 +81,14 @@ const Surface = styled(ButtonLayer)`
   justify-content: center;
   align-items: center;
   font-size: 32px;
-  transition: transform 400ms cubic-bezier(0, 0.68, 0.67, 1.09);
 
-  &:hover {
-    transform: translate(-10px, -10px);
-  }
+  // @media (prefers-reduced-motion: no-preference) {
+    transition: transform 400ms cubic-bezier(0, 0.68, 0.67, 1.09);
+    &:hover {
+      transform: translate(-10px, -10px);
+    }
+  // }
+
 `;
 
 const Shadow = styled(ButtonLayer)`
@@ -123,7 +126,11 @@ const Ball = styled.button`
   background: red;
   border-radius: 50%;
   border: none;
+  
+  //@media (prefers-reduced-motion: no-preference) {
   animation: ${bounce} 600ms alternate ease-out infinite;
+  //}
+
 `;
 
 render(<Demo />);
@@ -134,6 +141,16 @@ render(<Demo />);
 ```jsx live=true split=[80,20]
 const Demo = ({ children = 'Hello' }) => {
   const [enabled, setEnabled] = React.useState(false);
+
+  // const [motion, setMotion] = React.useState(true);
+
+  // React.useEffect(() => {
+  //   const mediaQuery = window.matchMedia(
+  //     '(prefers-reduced-motion: no-preference)'
+  //   );
+  //   setMotion(mediaQuery.matches);
+  // }, []);
+
   return (
     <Wrapper onClick={() => setEnabled(!enabled)}>
       <Ball
@@ -165,7 +182,9 @@ const Ball = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  transition: transform 250ms, background 400ms;
+  //oooor @media (prefers-reduced-motion: no-preference) {
+    transition: transform 250ms, background 400ms;
+  //}
 `;
 render(<Demo />);
 ```
@@ -216,9 +235,22 @@ https://codesandbox.io/s/compassionate-bush-3tv15
 
 ```js live=true split=[70,30]
 const Card = ({ isVisible, children }) => {
+
+  //  const [motion, setMotion] = React.useState(true);
+
+  // React.useEffect(() => {
+  //   const mediaQuery = window.matchMedia(
+  //     '(prefers-reduced-motion: no-preference)'
+  //   );
+  //   setMotion(mediaQuery.matches);
+  // }, []);???????
+
+
+
   const style = useSpring({
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0px)' : 'translateY(10px)',
+    //immediate: !motion;
   });
 
   return <Wrapper style={style}>{children}</Wrapper>;

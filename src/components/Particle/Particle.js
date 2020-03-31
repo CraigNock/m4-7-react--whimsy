@@ -16,6 +16,7 @@ const Particle = ({distance, angle, children}) => {
   const shootStyle = useSpring({
     transform: `translate(${x}px, ${y}px)`,
     from : {transform: `translate(${x/10}px, ${y/10}px)`},
+    // delay:1000,
     config: { 
       mass: 1,
       tension: 300,
@@ -50,7 +51,9 @@ const Particle = ({distance, angle, children}) => {
 
 
 const Wrapper = styled(animated.div)`
-  
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
 `;
 
 export default Particle;

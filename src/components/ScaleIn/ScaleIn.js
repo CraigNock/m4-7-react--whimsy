@@ -7,6 +7,9 @@ import { useSpring, animated } from 'react-spring';
 
 
 const ScaleIn = ({children}) => {
+  const query = '(prefers-reduced-motion: reduce)';
+  const mediaQueryList = window.matchMedia(query);
+  const shouldReduceMotion = mediaQueryList.matches;
 
   const scaleStyle = useSpring({
     transform: 'scale(1)',
@@ -17,7 +20,8 @@ const ScaleIn = ({children}) => {
       mass: 2,
       tension: 200,
       friction: 20,
-    }
+    },
+    immediate: shouldReduceMotion,
   });
 
 
